@@ -37,6 +37,25 @@ public class PlayerActivity extends AppCompatActivity {
         String name=intent.getStringExtra("songName");
         final String url=intent.getStringExtra("songPath");
         songName.setText(name);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean userTouch) {
+                if (userTouch) {
+                    mediaPlayer.seekTo(i);
+                    seekBar.setProgress(i);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                seekBar.setProgress(mediaPlayer.getCurrentPosition());
+            }
+        });
 
         playPause.setOnClickListener(new View.OnClickListener() {
 
@@ -127,6 +146,7 @@ public class PlayerActivity extends AppCompatActivity {
                 }
             }
         }
+
 
     }
 
